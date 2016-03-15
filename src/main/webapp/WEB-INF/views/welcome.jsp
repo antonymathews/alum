@@ -4,7 +4,7 @@ With inputs from
 Biajay Sahoo			batch-2001
 Sundeep Mohanty (Tutu)	batch-2001
 Sambit Satpathy			batch-2000
-Soumya Mohanty (Bapi) 	batch-2001
+Soumya Ranjan Parida (Bapi) 	batch-2001
 Kamalesh Nayak			batch-2001
  -->
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -30,7 +30,7 @@ Kamalesh Nayak			batch-2001
 		<a href="<c:url value='/member-home' />" class="btn btn-default navbar-btn" role="button">Members</a>
 	</div>
 	<div class="navbar-header">
-		<a href="<c:url value='/signup' />" class="btn btn-default navbar-btn" role="button">Sign up</a>
+		<a href="<c:url value='/signup' />" class="btn btn-default navbar-btn" role="button">New User</a>
 	</div>
   </div>
 </nav>

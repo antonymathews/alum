@@ -5,7 +5,7 @@ With inputs from
 Biajay Sahoo			batch-2001
 Sundeep Mohanty (Tutu)	batch-2001
 Sambit Satpathy			batch-2000
-Soumya Mohanty (Bapi) 	batch-2001
+Soumya Ranjan Parida (Bapi) 	batch-2001
 Kamalesh Nayak			batch-2001
  -->
 
@@ -97,6 +97,8 @@ public class MemberController {
 		List<Member> members = service.findAllMembers(type, search);
 		model.addAttribute("members", members);
 		SearchMemberForm smf = new SearchMemberForm();
+		smf.setType(type);
+		smf.setSearch(search);
 		model.addAttribute("searchMemberForm", smf);
 		return "allMembers";
 	}
@@ -118,6 +120,7 @@ public class MemberController {
 	@RequestMapping(value =  "/signup", method = RequestMethod.POST)
 	public String saveMember(@Valid MemberForm memberForm, BindingResult result,
 			ModelMap model) {
+		System.out.println(" in signup post");
 		Member member = new Member(memberForm);
 		
 		member.setRegistrationDate(new LocalDate(new DateTime()));	// registration date today
@@ -126,11 +129,12 @@ public class MemberController {
 		if (result.hasErrors()) {
 			return "changeMember";
 		}
-	    
-		writePhoto(memberForm);
-        
+		
 		service.saveMember(member);
-		model.addAttribute("success", "Member " + member.getName() + " registered successfully");
+		Member newMember = service.getIdFromUserName(member.getUserName());
+		memberForm.setId(newMember.getId());
+		writePhoto(memberForm);
+		model.addAttribute("success", "Member " + member.getName() + " registered successfully, the administrator will soon enable you");
 		model.addAttribute("type", "member");
 		return "success";
 	}

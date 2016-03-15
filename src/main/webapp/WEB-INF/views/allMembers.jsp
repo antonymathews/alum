@@ -4,7 +4,7 @@ With inputs from
 Biajay Sahoo			batch-2001
 Sundeep Mohanty (Tutu)	batch-2001
 Sambit Satpathy			batch-2000
-Soumya Mohanty (Bapi) 	batch-2001
+Soumya Ranjan Parida  (Bapi) 	batch-2001
 Kamalesh Nayak			batch-2001
  -->
 
@@ -33,18 +33,22 @@ Kamalesh Nayak			batch-2001
 	</form:form>
 	<h2>List of Members</h2>	
 	<table class="table" id="commonTable">
+		<thead>
 		<tr>
 			<th>batch</th>
 			<th>Name</th>
 			<th>email</th>
 			<th>roll no.</th>
 			<th>contact no.</th>
+			<th>contact address</th>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<th>Regd dt</th>
 				<th>Enabled</th>
 				<th></th>
 			</sec:authorize>
 		</tr>
+		</thead>
+		<tbody>
 		<c:forEach items="${members}" var="member">
 			<tr>
 			<td>
@@ -58,7 +62,16 @@ Kamalesh Nayak			batch-2001
 			<td>${member.contactEmail}</td>
 			<td>${member.rollNumber}</td>
 			<!--  if member.displayContact is true -->
-				<td>member.contactNo</td>
+			<td>
+				<c:if test="${member.displayContact}">
+					${member.contactNumber}
+				</c:if>
+			</td>
+			<td>
+				<c:if test="${member.displayContact}">
+					${member.contactAddress}
+				</c:if>
+			</td>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<td>${member.registrationDate }</td>
 				<td>${member.enabled }</td>
@@ -66,6 +79,7 @@ Kamalesh Nayak			batch-2001
 			</sec:authorize>
 			</tr>
 		</c:forEach>
+		</tbody>
 	</table>	
 </div>
 </body>
