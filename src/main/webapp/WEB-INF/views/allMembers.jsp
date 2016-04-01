@@ -49,7 +49,7 @@ Kamalesh Nayak			batch-2001
 		</tr>
 		</thead>
 		<tbody>
-		<c:forEach items="${members}" var="member">
+		<c:forEach items="${members}" var="member" varStatus="cnt">
 			<tr>
 			<td>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -60,6 +60,9 @@ Kamalesh Nayak			batch-2001
 				<a href="<c:url value='/member-${member.id}-view' />">${member.name}</a>
 			</td>
 			<td>${member.contactEmail}</td>
+			<c:if test="${not empty member.contactEmail}" >
+				<c:set var="emailList" value="${emailList}${cnt.first ? '' : ', '} ${member.contactEmail}" />
+			</c:if>
 			<td>${member.rollNumber}</td>
 			<!--  if member.displayContact is true -->
 			<td>
@@ -82,6 +85,13 @@ Kamalesh Nayak			batch-2001
 		</tbody>
 	</table>	
 </div>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<div class="xs-12">Copy paste the email list below into an email tool 
+		to send email to the above search result</div>
+	<div class="xs-12">
+		<b>Emails:</b> ${emailList}
+	</div>
+</sec:authorize>
 </body>
 
 </html>
